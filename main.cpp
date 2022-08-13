@@ -48,12 +48,13 @@ std::string validatingEmail (std::string email) {
         }
     std::cout << "CHK " << chk << std::endl;
     std::cout << "CHECKEMAIL " << checkEmail << std::endl;
-    if (chk == partLeft.length()) checkEmail = checkEmail + 1;
+
+    /*if (chk == partLeft.length()) checkEmail = checkEmail + 1;
 
         //std::cout << checkEmail << std::endl;
 
         if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
-            else checkEmail = checkEmail + 1;
+            else checkEmail = checkEmail + 1;*/
     }
     /*std::cout << checkEmail << std::endl;/*
     for (int i = 0; i < partRight.length(); i++) {
@@ -75,6 +76,7 @@ std::string validatingEmail (std::string email) {
 
     /*if (checkEmail) std::cout << "YES";
         else std::cout << "NO";*/
+    std::cout << "CHECKEMAIL " << checkEmail << std::endl;
 
     return checkEmail == 3 ? "YES" : "NO";
 }
