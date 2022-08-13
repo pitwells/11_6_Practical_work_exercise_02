@@ -25,9 +25,8 @@ std::string validatingEmail (std::string email) {
     if (partLeft.length() < 64 && partLeft.length() > 1 && partRight.length() < 63 && partRight.length() > 1) {
         checkEmail = checkEmail + 1;
     } else checkEmail = 0;
-    std::cout << checkEmail << std::endl;
 
-    std::cout << "CHECKEMAIL " << checkEmail << std::endl;
+    std::cout << "CHECKEMAIL length " << checkEmail << std::endl;
 
     int chk = 0;
 
@@ -46,16 +45,47 @@ std::string validatingEmail (std::string email) {
                 //std::cout << "***" << std::endl;
             }
         }
-    std::cout << "CHK " << chk << std::endl;
-    std::cout << "CHECKEMAIL " << checkEmail << std::endl;
+    //std::cout << "CHK " << chk << std::endl;
+    //std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
 
-    /*if (chk == partLeft.length()) checkEmail = checkEmail + 1;
+    if (chk == partLeft.length()) checkEmail = checkEmail + 1;
 
         //std::cout << checkEmail << std::endl;
 
-        if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
+        /*if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
             else checkEmail = checkEmail + 1;*/
     }
+
+    chk = 0;
+
+    for (int i = 0; i < partRight.length(); i++) {
+
+        //if (qwer) break;
+        for (int k = 0; k < symbolsRight.length(); k++) {
+            if (partRight[i] != symbolsRight[k]) {
+                //checkEmail = 0;
+                //std::cout << symbolsLeft[k] << "|" << std::endl;
+            } else {
+                chk +=1 ;
+                //checkEmail = checkEmail + 1;
+                //qwer = true;
+                //break;
+                //std::cout << "***" << std::endl;
+            }
+        }
+        //std::cout << "CHK " << chk << std::endl;
+        //std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
+
+        if (chk == partRight.length()) checkEmail = checkEmail + 1;
+
+        //std::cout << checkEmail << std::endl;
+
+        /*if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
+            else checkEmail = checkEmail + 1;*/
+    }
+
+    std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
+    std::cout << "CHECKEMAIL symbol right " << checkEmail << std::endl;
     /*std::cout << checkEmail << std::endl;/*
     for (int i = 0; i < partRight.length(); i++) {
         if (partLeft[i] == symbolsRight[i]) checkEmail = checkEmail + 1;
@@ -76,7 +106,7 @@ std::string validatingEmail (std::string email) {
 
     /*if (checkEmail) std::cout << "YES";
         else std::cout << "NO";*/
-    std::cout << "CHECKEMAIL " << checkEmail << std::endl;
+    std::cout << "CHECKEMAIL end " << checkEmail << std::endl;
 
     return checkEmail == 3 ? "YES" : "NO";
 }
