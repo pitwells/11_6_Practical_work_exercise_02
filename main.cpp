@@ -1,7 +1,5 @@
 #include <iostream>
 
-int checkEmail = 0;
-bool qwer = false;
 std::string email;
 std::string symbolsLeft = "!#$%&'*+-/=?^_`{|}~.1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 std::string symbolsRight = "-.1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,109 +15,65 @@ std::string separatesPartEmail (std::string email, int part) {
     return part == 1 ? result = partLeft : result = partRight;
 }
 
+
 std::string validatingEmail (std::string email) {
+    int checkValid = 0;
     std::string partLeft, partRight;
     partLeft = separatesPartEmail(email, 1);
     partRight = separatesPartEmail(email, 2);
 
-    if (partLeft.length() < 64 && partLeft.length() > 1 && partRight.length() < 63 && partRight.length() > 1) {
-        checkEmail = checkEmail + 1;
-    } else checkEmail = 0;
-
-    std::cout << "CHECKEMAIL length " << checkEmail << std::endl;
+    if (partLeft.length() <= 64 && partLeft.length() >= 1 && partRight.length() <= 63 && partRight.length() >= 1) {
+        checkValid = checkValid + 1;
+    } else checkValid = 0;
 
     int chk = 0;
 
     for (int i = 0; i < partLeft.length(); i++) {
-
-        //if (qwer) break;
         for (int k = 0; k < symbolsLeft.length(); k++) {
-            if (partLeft[i] != symbolsLeft[k]) {
-                //checkEmail = 0;
-                //std::cout << symbolsLeft[k] << "|" << std::endl;
-            } else {
-                chk +=1 ;
-                //checkEmail = checkEmail + 1;
-                //qwer = true;
-                //break;
-                //std::cout << "***" << std::endl;
-            }
+            if (partLeft[i] == symbolsLeft[k]) chk +=1;
         }
-    //std::cout << "CHK " << chk << std::endl;
-    //std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
-
-    if (chk == partLeft.length()) checkEmail = checkEmail + 1;
-
-        //std::cout << checkEmail << std::endl;
-
-        /*if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
-            else checkEmail = checkEmail + 1;*/
     }
+    if (chk == partLeft.length()) checkValid = checkValid + 1;
+        else checkValid = 0;
 
     chk = 0;
 
-    for (int i = 0; i < partRight.length(); i++) {
-
-        //if (qwer) break;
-        for (int k = 0; k < symbolsRight.length(); k++) {
-            if (partRight[i] != symbolsRight[k]) {
-                //checkEmail = 0;
-                //std::cout << symbolsLeft[k] << "|" << std::endl;
-            } else {
-                chk +=1 ;
-                //checkEmail = checkEmail + 1;
-                //qwer = true;
-                //break;
-                //std::cout << "***" << std::endl;
-            }
+    for (int n = 0; n < partRight.length(); n++) {
+        for (int j = 0; j < symbolsRight.length(); j++) {
+            if (partRight[n] == symbolsRight[j]) chk +=1;
         }
-        //std::cout << "CHK " << chk << std::endl;
-        //std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
-
-        if (chk == partRight.length()) checkEmail = checkEmail + 1;
-
-        //std::cout << checkEmail << std::endl;
-
-        /*if (partLeft[i] == '.' && partLeft[i+1] == '.') checkEmail = 0;
-            else checkEmail = checkEmail + 1;*/
     }
+    if (chk == partRight.length()) checkValid = checkValid + 1;
+        else checkValid = 0;
 
-    std::cout << "CHECKEMAIL symbol left " << checkEmail << std::endl;
-    std::cout << "CHECKEMAIL symbol right " << checkEmail << std::endl;
-    /*std::cout << checkEmail << std::endl;/*
-    for (int i = 0; i < partRight.length(); i++) {
-        if (partLeft[i] == symbolsRight[i]) checkEmail = checkEmail + 1;
-            else checkEmail = 0;
-        if (partRight[i] != '.' && partRight[i+1] != '.') checkEmail = checkEmail + 1;
-            else checkEmail = 0;
+    chk = 0;
+
+    for (int t = 0; t < partLeft.length(); t++) {
+        if (partLeft[t-1] == '.' && partLeft[t] == '.') checkValid = 0;
+            else chk = 1;
     }
-    std::cout << checkEmail << std::endl;
-    if (partLeft[0] != '.' && partLeft[partLeft.length()] != '.') {
-        checkEmail = checkEmail + 1;
-    } else checkEmail = 0;
-    std::cout << checkEmail << std::endl;
-    // проверить длинну строки +
-    // проверить символы +
-    // проверить точку в начале и конце +
-    // две точки подряд
-    // проверить две собаки
+    if (chk == 1) checkValid = checkValid + 1;
 
-    /*if (checkEmail) std::cout << "YES";
-        else std::cout << "NO";*/
-    std::cout << "CHECKEMAIL end " << checkEmail << std::endl;
+    chk = 0;
 
-    return checkEmail == 3 ? "YES" : "NO";
+    for (int q = 0; q < partLeft.length(); q++) {
+        if (partRight[q-1] == '.' && partRight[q] == '.') checkValid = 0;
+        else chk = 1;
+    }
+    if (chk == 1) checkValid = checkValid + 1;
+
+    if (partLeft[0] == '.' || partLeft[partLeft.size()] == '.') checkValid = 0;
+        else checkValid = checkValid + 1;
+
+    return checkValid == 6 ? "YES" : "NO";
 }
-
 
 
 int main() {
     std::cout << "Checking the correctness of the email address!" << std::endl << std::endl;
 
     std::cout << "Enter email address:" << std::endl;
-    std::cin >> email;
+    std::getline(std::cin, email);
 
     std::cout << validatingEmail(email);
-
-    std::cout << std::endl << "END";
 }
